@@ -10,19 +10,19 @@ jobs:
       - run:
           name: Lint Dockerfile
           command: hadolint Dockerfile
-  build-app-karsajobs:
+  build-app-karsajobs-ui:
     executor: docker/docker
     steps:
       - checkout
       - setup_remote_docker:
           version: default
       - run: |
-          . build_push_image_karsajobs.sh
+          . build_push_image_karsajobs_ui.sh
 
 workflows:
   lint-dockerfile:
     jobs:
       - lint-dockerfile
-  build-app-karsajobs:
+  build-app-karsajobs-ui:
     jobs:
-      - build-app-karsajobs
+      - build-app-karsajobs-ui
