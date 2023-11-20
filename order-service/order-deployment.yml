@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    app: order
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+        - name: order-container
+          image: ghcr.io/praset911/order-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+      env:
+        - name: AMQP_URL
+          value: 'amqp://my-rabbitmq.default.svc.cluster.local:5672'
